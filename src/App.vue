@@ -13,8 +13,8 @@ export default {
     <div class="ui middle aligned center aligned grid">
       <div class="row"></div>
       <div class="row">
-        <img class="ui small image" src="ma-logo.png" />
-        <img class="ui small image" src="robonomics-logo.png" />
+        <img class="ui small image" src="/ma-logo.png" />
+        <img class="ui small image" src="/robonomics-logo.png" />
       </div>
       <div class="row">
         <h1 class="ui huge header" style="color: white">Feecc Validator</h1>
