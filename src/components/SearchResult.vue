@@ -8,28 +8,31 @@
       <div class="item">
         <div class="content">
           <img class="ui avatar image" src="/ipfs-logo.png" />
-          IPFS Hash - {{ ipfsLink || "Недоступно" }}
+          IPFS - {{ ipfsLink || "Недоступно" }}
         </div>
       </div>
       <div class="item">
         <div class="content">
           <img class="ui avatar image" src="/robonomics-logo.png" />
-          TXN Hash - {{ txnLink || "Недоступно" }}
+          TXN - {{ txnLink || "Недоступно" }}
         </div>
       </div>
       <div class="item">
         <div class="content">
           <img class="ui avatar image" src="/ma-logo.png" />
-          Ссылка на паспорт - {{ shortUrl || "Недоступно" }}
+          Ссылка на Unit - {{ shortUrl || "Недоступно" }}
         </div>
       </div>
     </div>
-    <p></p>
+    <UnitLoader v-if="ipfsLink" :hash="ipfsLink" />
   </div>
 </template>
 
 <script>
+import UnitLoader from "./UnitLoader.vue";
+
 export default {
+  components: { UnitLoader },
   props: {
     creationTime: String,
     ipfsLink: {

@@ -69,7 +69,6 @@ export default {
         return;
       }
       console.log(` ${this.enteredValue}`);
-      this.validateValue();
       this.getData(this.enteredValue);
     },
     getData() {
