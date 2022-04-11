@@ -1,11 +1,21 @@
 <template>
-  <div class="ui bulleted list">
-    <div class="item"
+  <div class="ui middle aligned divided list">
+    <div
+      class="row item"
       v-for="row in certificateData.production_stages"
       :key="row.ended_timestamp"
     >
-    <div class="header">{{ "Начало: " + row.started_timestamp + ". Конец: " + row.ended_timestamp }}</div>
-      <p v-for="video in row.videos" :key="video">{{ video }}</p>
+      <div class="left floated content">
+        <div class="header">
+          {{
+            "Начало: " +
+            row.started_timestamp +
+            ". Конец: " +
+            row.ended_timestamp
+          }}
+        </div>
+        <p v-for="video in row.videos" :key="video">{{ video }}</p>
+      </div>
     </div>
   </div>
 </template>

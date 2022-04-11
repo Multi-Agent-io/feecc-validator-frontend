@@ -1,9 +1,9 @@
 <template>
-  <div v-if="!buttonChecked">
+  <div v-if="!buttonChecked" class="row">
     <a class="ui button" @click="checkButton()">Загрузить паспорт</a>
   </div>
-  <div v-else>
-    <h2 class="ui centered header">
+  <div v-else class="row">
+    <h2 class="ui header">
       {{ result.unit_name }} - Этапы сборки
       <div class="sub header">Обновлено {{ Date() }}</div>
     </h2>

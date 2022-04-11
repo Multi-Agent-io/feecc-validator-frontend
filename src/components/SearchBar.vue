@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="ui action input">
+    <div class="ui fluid action input">
       <select class="ui compact selection dropdown">
         <option disabled selected="">Значение:</option>
         <option
@@ -18,8 +18,8 @@
         v-bind:unselectable="selected.value.id"
         :disabled="selected.id === undefined"
       />
-      <div class="ui button" @click="onSearch()">
-        <i class="ui search icon" />
+      <div class="ui tiny button" @click="onSearch()">
+        <i class="search icon"></i>
       </div>
     </div>
   </div>
