@@ -2,7 +2,7 @@
   <div class="row">
     <div class="ui action input">
       <select class="ui compact selection dropdown">
-        <option disabled selected="">Option:</option>
+        <option disabled selected="">Значение:</option>
         <option
           v-for="opt in availableOptions"
           :key="opt.name"
@@ -15,6 +15,8 @@
         type="text"
         v-bind:placeholder="selected.value"
         v-model="enteredValue"
+        v-bind:unselectable="selected.value.id"
+        :disabled="selected.id === undefined"
       />
       <div class="ui button" @click="onSearch()">
         <i class="ui search icon" />
@@ -50,13 +52,18 @@ export default {
         {
           id: 0,
           name: "Int. Id",
-          value: "Enter Internal ID",
+          value: "Введите внутренний ID",
           request: "internal_id",
         },
-        { id: 1, name: "URL", value: "Enter short link", request: "short_url" },
-        { id: 2, name: "UUID", value: "Enter uuid", request: "uuid" },
-        { id: 3, name: "IPFS", value: "Enter IPFS Hash", request: "ipfs_cid" },
-        { id: 4, name: "TXN", value: "Enter TXN Hash", request: "txn_hash" },
+        { id: 1, name: "URL", value: "Введите ссылку", request: "short_url" },
+        { id: 2, name: "UUID", value: "Введите UUID", request: "uuid" },
+        {
+          id: 3,
+          name: "IPFS",
+          value: "Введите IPFS Hash",
+          request: "ipfs_cid",
+        },
+        { id: 4, name: "TXN", value: "Введите TXN Hash", request: "txn_hash" },
       ],
       selected: { value: "Поиск по:", request: null },
       enteredValue: null,

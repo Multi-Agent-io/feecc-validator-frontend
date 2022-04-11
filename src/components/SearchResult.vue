@@ -20,7 +20,7 @@
       <div class="item">
         <div class="content">
           <img class="ui avatar image" src="/ma-logo.png" />
-          Ссылка на Unit - {{ shortUrl || "Недоступно" }}
+          Ссылка на сертификат - {{ shortUrl || "Недоступно" }}
         </div>
       </div>
     </div>
