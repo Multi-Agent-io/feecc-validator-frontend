@@ -14,8 +14,13 @@
 <script>
 import axios from "axios";
 import UnitData from "./UnitData.vue";
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   components: { UnitData },
   props: {
     hash: String,
@@ -40,12 +45,12 @@ export default {
         })
         .then((response) => {
           const data = response.data;
-          console.log(data);
-          if (data.status_code != 200) {
-            alert("An error occured");
+          if (data.status_code == 404) {
+            this.toast.warning("Данные о изделии не найдены");
           }
           this.result = data.certificate_data;
-        });
+        })
+        .catch((e) => this.toast.error(e));
     },
   },
 };

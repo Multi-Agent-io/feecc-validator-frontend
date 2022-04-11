@@ -34,9 +34,13 @@
 <script>
 import axios from "axios";
 import SearchResult from "./SearchResult.vue";
-// import validate from "validate.js";
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   components: {
     SearchResult,
   },
@@ -54,7 +58,7 @@ export default {
         { id: 3, name: "IPFS", value: "Enter IPFS Hash", request: "ipfs_cid" },
         { id: 4, name: "TXN", value: "Enter TXN Hash", request: "txn_hash" },
       ],
-      selected: { value: "Pick option", request: null },
+      selected: { value: "Поиск по:", request: null },
       enteredValue: null,
       result: null,
     };
@@ -64,8 +68,14 @@ export default {
       this.selected = this.availableOptions[id];
     },
     onSearch() {
-      if (!this.enteredValue || !this.selected.request) {
-        alert("Error");
+      if (!this.selected.request) {
+        this.toast.error(
+          "Вы не указали тип значения, по которому будет произведен поиск"
+        );
+        return;
+      }
+      if (!this.enteredValue) {
+        this.toast.error("Вы не ввели значение");
         return;
       }
       console.log(` ${this.enteredValue}`);
@@ -83,10 +93,15 @@ export default {
         .then((response) => {
           const data = response.data;
           console.log(data);
-          if (data.status_code != 200) {
-            alert("An error occured");
+          if (data.status_code == 404) {
+            this.toast.warning("Изделие не найдено");
+            return;
           }
           this.result = data.unit_data;
+        })
+        .catch((e) => {
+          this.toast.warning("Произошла ошибка при подключении к серверу");
+          console.log(e);
         });
     },
   },
