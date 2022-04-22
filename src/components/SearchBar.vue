@@ -1,35 +1,26 @@
 <template>
-  <div class="row">
-    <div class="ui fluid action input">
-      <select class="ui compact selection dropdown">
-        <option disabled selected="">Значение:</option>
-        <option
-          v-for="opt in availableOptions"
-          :key="opt.name"
-          @click="replace(opt.id)"
-        >
-          {{ opt.name }}
-        </option>
-      </select>
-      <input
-        type="text"
-        v-bind:placeholder="selected.value"
-        v-model="enteredValue"
-        v-bind:unselectable="selected.value.id"
-        :disabled="selected.id === undefined"
-      />
-      <div class="ui tiny button" @click="onSearch()">
-        <i class="search icon"></i>
+  <div class="container">
+    <div class="row center-block">
+      <div class="input-group">
+        <Selector :options="availableOptions" :on-click="replace" />
+        <InputField
+          :selectedValue="selected.value"
+          :enteredValue="enteredValue"
+          :onUpdate="updateField"
+        />
+        <Button :textField="`Найти`" :onClick="onSearch" />
       </div>
     </div>
-  </div>
-  <div class="row" v-if="result">
-    <SearchResult
-      :creationTime="Date(result.creation_time)"
-      :ipfsLink="result.ipfs_link"
-      :txnLink="result.txn_link"
-      :shortUrl="result.passport_short_url"
-    />
+    <div class="row" v-if="result">
+      <div class="col" id="search-res">
+        <SearchResult
+          :creationTime="Date(result.creation_time)"
+          :ipfsLink="result.ipfs_link"
+          :txnLink="result.txn_link"
+          :shortUrl="result.passport_short_url"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,42 +28,39 @@
 import axios from "axios";
 import SearchResult from "./SearchResult.vue";
 import { useToast } from "vue-toastification";
+import Selector from "./UI/Selector.vue";
+import availableOptions from "../common/options.js";
+import InputField from "./UI/InputField.vue";
+import Button from "./UI/Button.vue";
 
 export default {
   setup() {
+    console.log(availableOptions);
     const toast = useToast();
     return { toast };
   },
   components: {
     SearchResult,
+    Selector,
+    InputField,
+    Button,
   },
   data() {
     return {
-      availableOptions: [
-        {
-          id: 0,
-          name: "Int. Id",
-          value: "Введите внутренний ID",
-          request: "internal_id",
-        },
-        { id: 1, name: "URL", value: "Введите ссылку", request: "short_url" },
-        { id: 2, name: "UUID", value: "Введите UUID", request: "uuid" },
-        {
-          id: 3,
-          name: "IPFS",
-          value: "Введите IPFS Hash",
-          request: "ipfs_cid",
-        },
-        { id: 4, name: "TXN", value: "Введите TXN Hash", request: "txn_hash" },
-      ],
-      selected: { value: "Поиск по:", request: null },
+      availableOptions: availableOptions,
+      selected: availableOptions[0],
       enteredValue: null,
       result: null,
     };
   },
   methods: {
     replace(id) {
-      this.selected = this.availableOptions[id];
+      console.log(id);
+      this.selected = availableOptions[id];
+    },
+    updateField(value) {
+      console.log(value);
+      this.enteredValue = value;
     },
     onSearch() {
       if (!this.selected.request) {
@@ -114,3 +102,14 @@ export default {
   },
 };
 </script>
+
+<style>
+.center-block {
+    display: table;  /* Instead of display:block */
+    margin-left: auto;
+    margin-right: auto;
+}
+#search-res {
+  padding-top: 25px;
+}
+</style>
