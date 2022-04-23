@@ -110,14 +110,11 @@ export default {
             this.toast.warning("Изделие не найдено");
             localStorage.removeItem("enteredValue");
             localStorage.removeItem("lastResult");
+            this.result = null
             return;
           }
           this.result = data.unit_data;
-          localStorage
-            .setItem("lastResult", JSON.stringify(data.unit_data))
-            .catch((e) =>
-              console.log(`Can't save latest result to localstorage: ${e}`)
-            );
+          localStorage.setItem("lastResult", JSON.stringify(data.unit_data));
         })
         .catch((e) => {
           this.toast.warning("Произошла ошибка при подключении к серверу");

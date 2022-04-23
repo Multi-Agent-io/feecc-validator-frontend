@@ -10,7 +10,7 @@
 <script>
 export default {
   data() {
-    return { enteredValue: ""};
+    return { enteredValue: "" };
   },
   mounted() {
     const enteredValueCached = localStorage.getItem("enteredValue");
@@ -20,10 +20,8 @@ export default {
   },
   watch: {
     enteredValue(valueNew, valueOld) {
+      this.onUpdate(valueNew);
       localStorage.setItem("enteredValue", valueNew);
-    },
-    selectedValue(valueNew, valueOld) {
-      localStorage.setItem("selectedValue", valueNew);
     },
   },
   props: {
