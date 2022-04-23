@@ -1,13 +1,19 @@
 <template>
-  <div v-if="!buttonChecked" class="row">
-    <a class="ui button" @click="checkButton()">Загрузить паспорт</a>
+  <div v-if="!buttonChecked && !result" class="row-6">
+    <Button :text-field="`Загрузить паспорт`" :on-click="checkButton"></Button>
+  </div>
+  <div v-else-if="buttonChecked && !result">
+    <Button :loading="true" />
   </div>
   <div v-else class="row">
-    <h2 class="ui header">
-      {{ result.unit_name }} - Этапы сборки
-      <div class="sub header">Обновлено {{ Date() }}</div>
+    <h2 class="text-center">
+      {{ result.unit_name }}
+      <div id="subh">
+        Обновлено {{ this.$dayjs().format("DD MMMM YYYY в HH:MM") }}. Этапы
+        сборки:
+      </div>
     </h2>
-    <UnitData :certificateData="result" />
+    <UnitData :certificate-data="result" />
   </div>
 </template>
 
@@ -15,13 +21,14 @@
 import axios from "axios";
 import UnitData from "./UnitData.vue";
 import { useToast } from "vue-toastification";
+import Button from "./UI/Button.vue";
 
 export default {
   setup() {
     const toast = useToast();
     return { toast };
   },
-  components: { UnitData },
+  components: { UnitData, Button },
   props: {
     hash: String,
   },
@@ -45,6 +52,7 @@ export default {
         })
         .then((response) => {
           const data = response.data;
+          console.log(data);
           if (data.status_code == 404) {
             this.toast.warning("Данные о изделии не найдены");
           }

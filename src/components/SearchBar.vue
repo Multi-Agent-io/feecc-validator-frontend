@@ -1,20 +1,26 @@
 <template>
   <div class="container">
-    <div class="row center-block">
-      <div class="input-group">
-        <Selector :options="availableOptions" :on-click="replace" />
-        <InputField
-          :selectedValue="selected.value"
-          :enteredValue="enteredValue"
-          :onUpdate="updateField"
-        />
+    <div class="row justify-content-center search-bar">
+      <div class="col-8">
+        <div class="input-group">
+          <Selector :options="availableOptions" :on-click="replace" />
+          <InputField
+            :selectedValue="selected.value"
+            :enteredValue="enteredValue"
+            :onUpdate="updateField"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center search-bar">
+      <div class="col-8">
         <Button :textField="`Найти`" :onClick="onSearch" />
       </div>
     </div>
-    <div class="row" v-if="result">
-      <div class="col" id="search-res">
+    <div class="row justify-content-center" v-if="result">
+      <div class="col-8" id="search-res">
         <SearchResult
-          :creationTime="Date(result.creation_time)"
+          :creationTime="result.creation_time"
           :ipfsLink="result.ipfs_link"
           :txnLink="result.txn_link"
           :shortUrl="result.passport_short_url"
@@ -35,7 +41,6 @@ import Button from "./UI/Button.vue";
 
 export default {
   setup() {
-    console.log(availableOptions);
     const toast = useToast();
     return { toast };
   },
@@ -44,6 +49,17 @@ export default {
     Selector,
     InputField,
     Button,
+  },
+  mounted() {
+    try {
+      var item = JSON.parse(localStorage.getItem("lastResult"));
+    } catch (e) {
+      console.log(`Can't load result from cache: ${e}`);
+      return;
+    }
+    if (item) {
+      this.result = item;
+    }
   },
   data() {
     return {
@@ -67,10 +83,12 @@ export default {
         this.toast.error(
           "Вы не указали тип значения, по которому будет произведен поиск"
         );
+        localStorage.removeItem("lastResult");
         return;
       }
       if (!this.enteredValue) {
         this.toast.error("Вы не ввели значение");
+        localStorage.removeItem("lastResult");
         return;
       }
       console.log(` ${this.enteredValue}`);
@@ -90,9 +108,16 @@ export default {
           console.log(data);
           if (data.status_code == 404) {
             this.toast.warning("Изделие не найдено");
+            localStorage.removeItem("enteredValue");
+            localStorage.removeItem("lastResult");
             return;
           }
           this.result = data.unit_data;
+          localStorage
+            .setItem("lastResult", JSON.stringify(data.unit_data))
+            .catch((e) =>
+              console.log(`Can't save latest result to localstorage: ${e}`)
+            );
         })
         .catch((e) => {
           this.toast.warning("Произошла ошибка при подключении к серверу");
@@ -105,11 +130,13 @@ export default {
 
 <style>
 .center-block {
-    display: table;  /* Instead of display:block */
-    margin-left: auto;
-    margin-right: auto;
+  display: table; /* Instead of display:block */
+  margin-left: auto;
+  margin-right: auto;
 }
 #search-res {
   padding-top: 25px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 </style>

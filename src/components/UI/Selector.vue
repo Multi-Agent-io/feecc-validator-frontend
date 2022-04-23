@@ -36,6 +36,7 @@ export default {
     updateField(value) {
       this.onClick(value.id);
       this.selectedValue = value.name;
+      localStorage.setItem("selectedValueId", value.id);
     },
   },
 };

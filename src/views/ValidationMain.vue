@@ -15,6 +15,7 @@
     </div>
   </header>
   <SearchBar />
+  <br>
 </template>
 
 <script>

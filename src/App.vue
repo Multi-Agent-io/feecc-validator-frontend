@@ -1,16 +1,10 @@
 <script>
-import ValidationMain from "./views/ValidationMain.vue";
-
-export default {
-  // components: {
-  //   ValidationMain,
-  // },
-};
+export default {};
 </script>
 
 <template>
   <main>
-    <router-view/>
+    <router-view />
   </main>
 </template>
 
