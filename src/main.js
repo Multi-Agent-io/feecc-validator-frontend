@@ -3,6 +3,7 @@ import App from "./App.vue";
 import Toast, { POSITION } from "vue-toastification";
 import router from "./router";
 import dayjs from "dayjs";
+import config from "./config";
 
 import "vue-toastification/dist/index.css";
 import "dayjs/locale/ru";
@@ -16,7 +17,9 @@ const app = createApp(App);
 
 app.config.globalProperties.$dayjs = dayjs;
 app.config.globalProperties.$dayjs.locale("ru");
-app.config.globalProperties.$dayjs.extend(customParseFormat)
+app.config.globalProperties.$dayjs.extend(customParseFormat);
+
+app.config.globalProperties.$config = config;
 
 app.use(router);
 app.use(Toast, toastOptions);

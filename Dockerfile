@@ -1,11 +1,10 @@
-FROM node:lts-alpine as build-stage
-WORKDIR /app
-COPY package*.json ./
+FROM node:14-alpine
+RUN mkdir -p /home/feecc-validator-frontend
+WORKDIR /home/feecc-validator-frontend
+COPY package.json ./
+RUN npm add express
 RUN npm install
-COPY ./ .
+COPY . .
 RUN npm run build
-
-FROM nginx as production-stage
-RUN mkdir /app
-COPY --from=build-stage /app/dist /app
-COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 3000
+CMD [ "node", "nodeServer.js" ]

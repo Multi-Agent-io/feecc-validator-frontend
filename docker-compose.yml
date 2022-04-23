@@ -1,11 +1,9 @@
-version: "3.7"
+version: "3"
 
 services:
   feecc-validator-frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: feecc-validator-frontend
+    build: ./
+    command: node nodeServer.js
+    ports: 
+      - 0.0.0.0:3000:8084
     restart: always
-    ports:
-      - "8081:8080"
