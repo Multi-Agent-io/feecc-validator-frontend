@@ -45,14 +45,13 @@ export default {
     },
     loadData() {
       axios
-        .get("http://134.209.240.5:8084/api/v1/unit-certificate", {
+        .get(this.$config.API_HOST + "/unit-certificate", {
           params: {
             ipfs_cid: this.hash,
           },
         })
         .then((response) => {
           const data = response.data;
-          console.log(data);
           if (data.status_code == 404) {
             this.toast.warning("Данные о изделии не найдены");
           }

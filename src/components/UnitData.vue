@@ -26,7 +26,6 @@ export default {
   props: ["certificateData"],
   methods: {
     parseDate(date) {
-      console.log(date);
       return this.$dayjs(date, "DD-MM-YYYY HH:mm:ss").format(
         "DD MMMM YYYY HH:mm"
       );

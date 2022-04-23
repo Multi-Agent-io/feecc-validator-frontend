@@ -71,11 +71,9 @@ export default {
   },
   methods: {
     replace(id) {
-      console.log(id);
       this.selected = availableOptions[id];
     },
     updateField(value) {
-      console.log(value);
       this.enteredValue = value;
     },
     onSearch() {
@@ -102,15 +100,14 @@ export default {
         },
       };
       axios
-        .get("http://134.209.240.5:8084/api/v1/unit-data", request)
+        .get(this.$config.API_HOST + "/unit-data", request)
         .then((response) => {
           const data = response.data;
-          console.log(data);
           if (data.status_code == 404) {
             this.toast.warning("Изделие не найдено");
             localStorage.removeItem("enteredValue");
             localStorage.removeItem("lastResult");
-            this.result = null
+            this.result = null;
             return;
           }
           this.result = data.unit_data;
