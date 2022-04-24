@@ -1,5 +1,5 @@
 <template>
-  <ul class="list-group group">
+  <ul class="list-group">
     <li
       class="list-group-item d-flex justify-content-between align-items-center"
       v-for="row in certificateData.production_stages"
@@ -34,9 +34,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.group {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-</style>
+<style></style>

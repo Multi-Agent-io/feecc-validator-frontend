@@ -1,14 +1,12 @@
 <template>
-  <div class="container">
+  <div class="container fill">
     <div class="row justify-content-center">
       <div class="col result-page rounded">
-        <h2 class="text-center">
-          Изделие
-          <div id="subh">
-            Произведено
-            {{ this.$dayjs(creationTime).format("DD MMMM YYYY в HH:MM") }}
-          </div>
-        </h2>
+        <h2 class="text-center">Изделие</h2>
+        <div id="subh" class="text-center">
+          Произведено
+          {{ this.$dayjs(creationTime).format("DD MMMM YYYY в HH:MM") }}
+        </div>
         <div class="list-group">
           <div
             class="list-group-item d-flex justify-content-between align-items-center"
@@ -99,10 +97,14 @@ export default {
   color: gray;
   font-size: 16px;
   padding-bottom: 10px;
-  margin-right: 100px;
-  margin-left: 100px;
+  /* margin-right: 100px;
+  margin-left: 100px; */
 }
 #loaded-unit {
   padding-top: 10px;
+}
+.fill {
+  min-height: 100%;
+  height: 100%;
 }
 </style>

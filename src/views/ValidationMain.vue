@@ -1,21 +1,21 @@
 <template>
   <header>
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col-3">
-          <img class="mx-auto d-block logo" src="/ma-logo.png" />
-        </div>
-        <div class="col-3">
-          <img class="mx-auto d-block logo" src="/robonomics-logo.png" />
-        </div>
+    <nav class="navbar fixed-top navbar-light bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/ma-logo.png" class="d-inline-block align-text-top logo" />
+          <img
+            src="/robonomics-logo.png"
+            class="d-inline-block align-text-top logo"
+          />
+          Feecc Validator
+        </a>
       </div>
-      <div class="row">
-        <h1 class="text-center" style="color: white">Feecc Validator</h1>
-      </div>
-    </div>
+    </nav>
   </header>
-  <SearchBar />
-  <br>
+  <section class="d-flex aligns-items-center justify-content-center">
+    <SearchBar />
+  </section>
 </template>
 
 <script>
@@ -30,8 +30,10 @@ export default {
 
 <style>
 .logo {
-  width: 75%;
+  width: 25px;
   height: auto;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 header,
 footer,

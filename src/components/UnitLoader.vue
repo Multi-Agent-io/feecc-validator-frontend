@@ -2,18 +2,22 @@
   <div v-if="!buttonChecked && !result" class="row-6">
     <Button :text-field="`Загрузить паспорт`" :on-click="checkButton"></Button>
   </div>
-  <div v-else-if="buttonChecked && !result">
+  <div v-else-if="buttonChecked && !result" class="row-6">
     <Button :loading="true" />
   </div>
   <div v-else class="row">
-    <h2 class="text-center">
-      {{ result.unit_name }}
-      <div id="subh">
+    <div class="col">
+      <h2 class="text-center">
+        {{ result.unit_name }}
+      </h2>
+      <div id="subh" class="text-center">
         Обновлено {{ this.$dayjs().format("DD MMMM YYYY в HH:MM") }}. Этапы
         сборки:
       </div>
-    </h2>
-    <UnitData :certificate-data="result" />
+    </div>
+    <div class="row-auto">
+      <unit-data :certificate-data="result" />
+    </div>
   </div>
 </template>
 
