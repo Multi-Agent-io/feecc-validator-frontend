@@ -1,6 +1,6 @@
-# feecc-validator-frontend
+# Feecc Validator Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+A web interface for interaction with validating microservice for Feecc Validator. The main task of the Feecc Validator is to compare data from different data stores in order to validate the integrity of the digital product certificate.
 
 ## Recommended IDE Setup
 
